@@ -1,14 +1,15 @@
 import React, { Component } from 'react'
 import Colorbox from './Colorbox'
-
-import Slider, { Range } from 'rc-slider';
-import 'rc-slider/assets/index.css';
+import Navbar from './Navbar'
 import "./Palette.css"
+
 export default class Palette extends Component {
     constructor(props){
         super(props);
-        this.state = {level: 500}
+        this.state = {level: 500, format:"hex",open: true}
         this.changeLevel = this.changeLevel.bind(this)
+        this.changeFormat = this.changeFormat.bind(this)
+     
     }
 
     changeLevel(level){
@@ -17,23 +18,37 @@ export default class Palette extends Component {
         this.setState({level})
         
     }
+
+    changeFormat(val){
+        this.setState({format: val})
+    }
+
+   
     render() {
-        const {colors} = this.props.palette;
-        const {level} = this.state;
+        const {colors, paletteName, emoji} = this.props.palette;
+        const {level, format} = this.state;
         return (
             <div className="Palette">
-                <div className="slider">
-                <Slider  defaultValue = {this.state.level} min = {100} max = {900} onAfterChange={this.changeLevel}
-                step={100}
-                />
-                  </div>
+               <Navbar
+               level = {level}
+               changeLevel = {this.changeLevel}
+               handleChange = {this.changeFormat}
+               />
                 {/* header */}
                 <div className="Palette-colors">
                 {colors[level].map(color=> (
-                        <Colorbox background = {color.hex} name = {color.name}></Colorbox>
+                        <Colorbox background = {color[format]} name = {color.name}
+                        key={color.id}
+                        ></Colorbox>
                     ))}
                 </div>
-                {/* footer */}
+              <footer className="Palette-footer">
+                    {paletteName}
+                    <span className="emoji">
+                        {emoji}
+                    </span>
+              </footer>
+               
             </div>
         )
     }

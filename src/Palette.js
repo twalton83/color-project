@@ -1,9 +1,11 @@
 import React, { Component } from 'react'
 import Colorbox from './Colorbox'
 import Navbar from './Navbar'
-import "./Palette.css"
+import PaletteFooter from "./PaletteFooter"
+import {withStyles} from "@material-ui/styles"
+import styles from "./styles/PaletteStyles"
 
-export default class Palette extends Component {
+class Palette extends Component {
     constructor(props){
         super(props);
         this.state = {level: 500, format:"hex",open: true}
@@ -25,31 +27,34 @@ export default class Palette extends Component {
 
    
     render() {
-        const {colors, paletteName, emoji} = this.props.palette;
+        const {colors, paletteName, emoji, id} = this.props.palette;
+        const {classes} = this.props
         const {level, format} = this.state;
         return (
-            <div className="Palette">
+            <div className={classes.Palette}>
                <Navbar
                level = {level}
                changeLevel = {this.changeLevel}
-               handleChange = {this.changeFormat}
+               handleChange = {this.changeFormat} showingAllColors
                />
                 {/* header */}
-                <div className="Palette-colors">
+                <div className={classes.PaletteColors}>
                 {colors[level].map(color=> (
-                        <Colorbox background = {color[format]} name = {color.name}
+                        <Colorbox 
+                        background = {color[format]} 
+                        name = {color.name}
                         key={color.id}
+                        id= {color.id}
+                        paletteId = {id}
+                        showingFullPalette = {true}
                         ></Colorbox>
                     ))}
                 </div>
-              <footer className="Palette-footer">
-                    {paletteName}
-                    <span className="emoji">
-                        {emoji}
-                    </span>
-              </footer>
+              <PaletteFooter paletteName = {paletteName} emoji = {emoji}/>
                
             </div>
         )
     }
 }
+
+export default withStyles(styles)(Palette)

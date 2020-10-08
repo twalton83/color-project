@@ -5,7 +5,6 @@ import styles from './styles/MiniPaletteStyles'
 
 function MiniPalette(props) {
     const {classes, colors, paletteName, emoji, id} = props;
-    console.log(emoji)
     return (
         <div className={classes.root} onClick = {props.handleClick}>
             <section className={classes.colors}>

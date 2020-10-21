@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import Slider, { Range } from 'rc-slider';
+import Slider from 'rc-slider';
 import 'rc-slider/assets/index.css';
 import Select from '@material-ui/core/Select'
 import { MenuItem } from '@material-ui/core';
@@ -32,7 +32,7 @@ class Navbar extends Component {
     }
    
     render() {
-        const {level, changeLevel, handleChange, classes} = this.props
+        const {level, changeLevel, classes} = this.props
         const {format} = this.state
         return (
             <header className={classes.Navbar}>

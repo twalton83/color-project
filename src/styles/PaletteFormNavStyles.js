@@ -1,7 +1,6 @@
 
 import sizes from './sizes';
 const drawerWidth = 400;
-
 const styles = theme =>  ({
   appBar: {
     transition: theme.transitions.create(["margin", "width"], {
